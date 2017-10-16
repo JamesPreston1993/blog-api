@@ -9,7 +9,19 @@ module.exports = {
 };
 
 function createBlog (req, res) {
-    
+    var blog = new Blog({
+        title: req.body.title,
+        content: req.body.content,
+        creator: req.body.creator
+    });
+
+    blog.save(function (err) {
+        if (err) {
+            res.send('Error saving blog: ' + err);
+        } else {
+            res.send('Blog created.');
+        }
+    });
 }
 
 function updateBlog (req, res) {
