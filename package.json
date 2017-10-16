@@ -1,0 +1,23 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "An API for creating, viewing and editing blog posts. Created using Mongoose and Express.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node build/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blog",
+    "node",
+    "api",
+    "express"
+  ],
+  "author": "James Preston",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.2"
+  }
+}
