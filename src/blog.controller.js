@@ -25,7 +25,39 @@ function createBlog (req, res) {
 }
 
 function updateBlog (req, res) {
+    Blog.findById(req.params.id, function (err, blog) {
+        if (err) {
+            res.status(500).send('Error updating blog: ' + err);
+        }
     
+        if (!blog) { 
+            res.status(404).send('Blog with the provided id could not be found');
+        } else {
+            var triggerUpdate = false;
+            
+            if (typeof req.body.title !== 'undefined') {
+                triggerUpdate = true;
+                blog.title = req.body.title
+            }
+            
+            if (typeof req.body.content !== 'undefined') {
+                triggerUpdate = true;
+                blog.content = req.body.content
+            }
+
+            if (triggerUpdate) {
+                blog.save(function (err, updatedBlog) {
+                    if (err) {
+                        res.status(500).send('Error updating blog: ' + err);
+                    } else {
+                        res.send('Blog updated.');
+                    }
+                });
+            } else {
+                res.send('Update not required.');
+            }
+        }
+    });
 }
 
 function deleteBlog (req, res) {
