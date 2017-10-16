@@ -29,7 +29,21 @@ function updateBlog (req, res) {
 }
 
 function deleteBlog (req, res) {
-    
+    if (typeof req.params.id === 'undefined') {
+        res.status(400).send('An id was not provided');
+    }
+
+    Blog.findByIdAndRemove(req.params.id, function(err, blog) {
+        if (err) {
+            res.status(500).send('Error deleting blog: ' + err);
+        }
+
+        if (!blog) { 
+            res.status(404).send('Blog with the provided id could not be found');
+        } else {
+            res.send('Blog deleted.');
+        }
+    });
 }
 
 function viewBlog (req, res) {
