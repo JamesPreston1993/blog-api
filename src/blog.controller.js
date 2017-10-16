@@ -73,6 +73,24 @@ function viewBlogs (req, res) {
         query.where({ creator: creator });       
     }
 
+    // Filter by start date
+    if (typeof req.query.startDate !== 'undefined') {
+        var milliseconds = parseInt(req.query.startDate);
+        if (!isNaN(milliseconds)) {
+            var startDate = new Date(milliseconds);
+            query.where({ createdOn: { $gte: startDate } });
+        }     
+    }
+
+    // Filter by end date
+    if (typeof req.query.endDate !== 'undefined') {
+        var milliseconds = parseInt(req.query.endDate);
+        if (!isNaN(milliseconds)) {
+            var endDate = new Date(milliseconds);
+            query.where({ createdOn: { $lte: endDate } });
+        }     
+    }
+
     // Add limit to search
     if (typeof req.query.limit !== 'undefined') {
         var limit = parseInt(req.query.limit);
