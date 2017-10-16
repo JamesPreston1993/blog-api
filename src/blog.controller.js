@@ -65,5 +65,27 @@ function viewBlog (req, res) {
 }
 
 function viewBlogs (req, res) {
-    
+    var query = Blog.find();
+
+    // Filter by username
+    if (typeof req.query.creator !== 'undefined') {
+        var creator = decodeURIComponent(req.query.creator);
+        query.where({ creator: creator });       
+    }
+
+    // Add limit to search
+    if (typeof req.query.limit !== 'undefined') {
+        var limit = parseInt(req.query.limit);
+        if (typeof limit === 'number') {
+            query.limit(limit);
+        }        
+    }
+
+    query.exec(function (err, blogs) {
+        if (err) {
+            res.status(500).send('An error occured retrieving blogs: ' + err);
+        } else {
+            res.send(blogs);
+        }
+    });
 }
