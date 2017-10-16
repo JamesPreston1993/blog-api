@@ -17,7 +17,7 @@ function createBlog (req, res) {
 
     blog.save(function (err) {
         if (err) {
-            res.send('Error saving blog: ' + err);
+            res.status(500).send('Error saving blog: ' + err);
         } else {
             res.send('Blog created.');
         }
