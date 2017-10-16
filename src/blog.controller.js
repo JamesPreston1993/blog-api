@@ -94,7 +94,7 @@ function viewBlogs (req, res) {
     // Add limit to search
     if (typeof req.query.limit !== 'undefined') {
         var limit = parseInt(req.query.limit);
-        if (typeof limit === 'number') {
+        if (!isNaN(limit)) {
             query.limit(limit);
         }        
     }
