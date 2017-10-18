@@ -33,17 +33,7 @@ function updateBlog (req, res) {
         if (!blog) { 
             res.status(404).send('Blog with the provided id could not be found');
         } else {
-            var triggerUpdate = false;
-            
-            if (typeof req.body.title !== 'undefined') {
-                triggerUpdate = true;
-                blog.title = req.body.title
-            }
-            
-            if (typeof req.body.content !== 'undefined') {
-                triggerUpdate = true;
-                blog.content = req.body.content
-            }
+            var triggerUpdate = blog.updateProperties(req.body);
 
             if (triggerUpdate) {
                 blog.markAsUpdated();
