@@ -55,5 +55,49 @@ describe('blog model', function () {
                     'Blog validation failed: creator: Path `creator` is required.');
             });
         });
+
+        describe('notEmpty', function () {
+            it('error if title is empty', function () {
+                var blog = new Blog({
+                    title: '   ',
+                    content: 'My blog contents',
+                    creator: 'username1'
+                });
+        
+                var error = blog.validateSync();
+        
+                assert.notTypeOf(error, 'undefined');
+                assert.equal(error.message,
+                    'Blog validation failed: title: Cannot be empty.');
+            });
+
+            it('error if content is empty', function () {
+                var blog = new Blog({
+                    title: 'My Blog',
+                    content: '   ',
+                    creator: 'username1'
+                });
+        
+                var error = blog.validateSync();
+        
+                assert.notTypeOf(error, 'undefined');
+                assert.equal(error.message,
+                    'Blog validation failed: content: Cannot be empty.');
+            });
+
+            it('error if creator is empty', function () {
+                var blog = new Blog({
+                    title: 'My Blog',
+                    content: 'My blog contents',
+                    creator: '   '
+                });
+        
+                var error = blog.validateSync();
+        
+                assert.notTypeOf(error, 'undefined');
+                assert.equal(error.message,
+                    'Blog validation failed: creator: Cannot be empty.');
+            });
+        });
     });
 });
