@@ -3,6 +3,18 @@ var assert = require('chai').assert;
 
 describe('blog model', function () {
     describe('required validator', function () {
+        it('no error when all properties set', function (){
+            var blog = new Blog({
+                title: 'My Blog',
+                content: 'My blog contents',
+                creator: 'username1'
+            });
+    
+            var error = blog.validateSync();
+    
+            assert.typeOf(error, 'undefined');
+        });
+
         it('error if title not set', function (){
             var blog = new Blog({
                 content: 'My blog contents',
