@@ -19,4 +19,20 @@ BlogSchema.methods.markAsUpdated = function () {
     this.lastUpdatedOn = Date.now();
 };
 
+BlogSchema.methods.updateProperties = function (newBlog) {
+    var changesMade = false;
+    
+    if (typeof newBlog.title !== 'undefined') {
+        changesMade = true;
+        this.title = newBlog.title
+    }
+    
+    if (typeof newBlog.content !== 'undefined') {
+        changesMade = true;
+        this.content = newBlog.content
+    }
+
+    return changesMade;
+};
+
 module.exports = mongoose.model('Blog', BlogSchema);
