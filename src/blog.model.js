@@ -11,7 +11,8 @@ var BlogSchema = new Schema({
     title: { type: String, required: true, validate: notEmptyValidator },
     content: { type: String, required: true, validate: notEmptyValidator },
     creator: { type: String, required: true, validate: notEmptyValidator }, 
-    createdOn: { type: Date, default: Date.now }
+    createdOn: { type: Date, default: Date.now },
+    lastUpdatedOn: { type: Date }
 });
 
 module.exports = mongoose.model('Blog', BlogSchema);
