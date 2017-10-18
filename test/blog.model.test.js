@@ -5,8 +5,7 @@ describe('blog model', function () {
     describe('properties', function () {
         describe('createdOn', function () {
             it('populated with current date by default', function () {
-                var currentDate = new Date();
-
+                var currentDate = new Date(new Date().getTime() - 10);
                 var blog = new Blog({
                     title: 'My Blog',
                     content: 'My blog contents',
@@ -27,6 +26,22 @@ describe('blog model', function () {
                 });
 
                 assert.typeOf(blog.lastUpdatedOn, 'undefined');
+            });
+
+            it('populated on call markAsUpdated', function () {
+                var currentDate = new Date(new Date().getTime() - 10);
+                var blog = new Blog({
+                    title: 'My Blog',
+                    content: 'My blog contents',
+                    creator: 'username1'
+                });
+
+                blog.markAsUpdated();
+
+                assert.notTypeOf(blog.lastUpdatedOn, 'undefined');
+                assert.isAbove(blog.lastUpdatedOn.getTime(),
+                currentDate.getTime()
+            );
             });
         });
     })
