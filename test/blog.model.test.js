@@ -16,8 +16,51 @@ describe('blog model', function () {
 
                 assert.notTypeOf(blog.lastUpdatedOn, 'undefined');
                 assert.isAbove(blog.lastUpdatedOn.getTime(),
-                currentDate.getTime()
-            );
+                    currentDate.getTime()
+                );
+            });
+        });
+        describe('updateProperties', function () {
+            it('returns false when empty object provided', function () {
+                var blog = new Blog({
+                    title: 'My Blog',
+                    content: 'My blog contents',
+                    creator: 'username1'
+                });
+
+                var result = blog.updateProperties({});
+
+                assert.equal(result, false);
+            });
+
+            it('updates title when provided', function () {
+                var blog = new Blog({
+                    title: 'My Blog',
+                    content: 'My blog contents',
+                    creator: 'username1'
+                });
+
+                var result = blog.updateProperties({
+                    title: 'My New Blog'
+                });
+                
+                assert.equal(result, true);
+                assert.equal(blog.title, 'My New Blog');
+            });
+
+            it('updates content when provided', function () {
+                var blog = new Blog({
+                    title: 'My Blog',
+                    content: 'My blog contents',
+                    creator: 'username1'
+                });
+
+                var result = blog.updateProperties({
+                    content: 'My new blog contents'
+                });
+                
+                assert.equal(result, true);
+                assert.equal(blog.content, 'My new blog contents');
             });
         });
     });
