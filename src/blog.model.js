@@ -15,4 +15,8 @@ var BlogSchema = new Schema({
     lastUpdatedOn: { type: Date }
 });
 
+BlogSchema.methods.markAsUpdated = function () {
+    this.lastUpdatedOn = Date.now();
+};
+
 module.exports = mongoose.model('Blog', BlogSchema);
