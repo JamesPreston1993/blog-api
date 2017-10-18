@@ -2,8 +2,8 @@ var Blog = require('./../src/blog.model');
 var assert = require('chai').assert;
 
 describe('blog model', function () {
-    describe('required validator', function () {
-        it('no error when all properties set', function (){
+    describe('validators', function (){
+        it('no error when all properties are valid', function (){
             var blog = new Blog({
                 title: 'My Blog',
                 content: 'My blog contents',
@@ -15,43 +15,45 @@ describe('blog model', function () {
             assert.typeOf(error, 'undefined');
         });
 
-        it('error if title not set', function (){
-            var blog = new Blog({
-                content: 'My blog contents',
-                creator: 'username1'
+        describe('required', function () {
+            it('error if title not set', function (){
+                var blog = new Blog({
+                    content: 'My blog contents',
+                    creator: 'username1'
+                });
+        
+                var error = blog.validateSync();
+        
+                assert.notTypeOf(error, 'undefined');
+                assert.equal(error.message,
+                    'Blog validation failed: title: Path `title` is required.');
+            });
+        
+            it('error if content not set', function (){
+                var blog = new Blog({
+                    title: 'My Blog',
+                    creator: 'username1'
+                });
+        
+                var error = blog.validateSync();
+        
+                assert.notTypeOf(error, 'undefined');
+                assert.equal(error.message,
+                    'Blog validation failed: content: Path `content` is required.');
             });
     
-            var error = blog.validateSync();
-    
-            assert.notTypeOf(error, 'undefined');
-            assert.equal(error.message,
-                'Blog validation failed: title: Path `title` is required.');
-        });
-    
-        it('error if content not set', function (){
-            var blog = new Blog({
-                title: 'My Blog',
-                creator: 'username1'
+            it('error if creator not set', function (){
+                var blog = new Blog({
+                    title: 'My Blog',
+                    content: 'My blog contents'
+                });
+        
+                var error = blog.validateSync();
+        
+                assert.notTypeOf(error, 'undefined');
+                assert.equal(error.message,
+                    'Blog validation failed: creator: Path `creator` is required.');
             });
-    
-            var error = blog.validateSync();
-    
-            assert.notTypeOf(error, 'undefined');
-            assert.equal(error.message,
-                'Blog validation failed: content: Path `content` is required.');
-        });
-
-        it('error if creator not set', function (){
-            var blog = new Blog({
-                title: 'My Blog',
-                content: 'My blog contents'
-            });
-    
-            var error = blog.validateSync();
-    
-            assert.notTypeOf(error, 'undefined');
-            assert.equal(error.message,
-                'Blog validation failed: creator: Path `creator` is required.');
         });
     });
 });
