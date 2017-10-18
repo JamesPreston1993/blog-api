@@ -1,4 +1,4 @@
-#Blog API
+# Blog API
 
 An API for creating, viewing, editing and deleting blogs using:
 
@@ -8,7 +8,18 @@ An API for creating, viewing, editing and deleting blogs using:
 
 ## Getting Started with the Demo App
 
-To test the API, simply run the demo app using `npm start`.
+To test the API, you can run the demo app. First, create a file
+called `config.json` in the root of the `build` directory with
+the following contents: 
+
+```
+{
+    // URL for MongoDB
+    "dbConnectionString": "..."
+}
+```
+
+Then start the app by running `npm start`.
 
 The app will start at `localhost:3000` if a port is not passed
 as an environment variable.
