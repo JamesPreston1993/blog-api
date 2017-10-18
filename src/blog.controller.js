@@ -46,6 +46,7 @@ function updateBlog (req, res) {
             }
 
             if (triggerUpdate) {
+                blog.lastUpdatedOn = Date.now();
                 blog.save(function (err, updatedBlog) {
                     if (err) {
                         res.status(500).send('Error updating blog: ' + err);
