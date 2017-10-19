@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var userSchemaName = process.env.USER_SCHEMA_NAME || 'User';
 
 var notEmptyValidator = [
     function (val) {
@@ -10,7 +11,7 @@ var notEmptyValidator = [
 var BlogSchema = new Schema({
     title: { type: String, required: true, validate: notEmptyValidator },
     content: { type: String, required: true, validate: notEmptyValidator },
-    creator: { type: String, required: true, validate: notEmptyValidator }, 
+    creator: { type: Schema.Types.ObjectId, required: true, ref: userSchemaName },
     createdOn: { type: Date, default: Date.now },
     lastUpdatedOn: { type: Date }
 });
