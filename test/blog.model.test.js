@@ -9,7 +9,7 @@ describe('blog model', function () {
                 var blog = new Blog({
                     title: 'My Blog',
                     content: 'My blog contents',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 blog.markAsUpdated();
@@ -25,7 +25,7 @@ describe('blog model', function () {
                 var blog = new Blog({
                     title: 'My Blog',
                     content: 'My blog contents',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 var result = blog.updateProperties({});
@@ -37,7 +37,7 @@ describe('blog model', function () {
                 var blog = new Blog({
                     title: 'My Blog',
                     content: 'My blog contents',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 var result = blog.updateProperties({
@@ -52,7 +52,7 @@ describe('blog model', function () {
                 var blog = new Blog({
                     title: 'My Blog',
                     content: 'My blog contents',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 var result = blog.updateProperties({
@@ -70,7 +70,7 @@ describe('blog model', function () {
             var blog = new Blog({
                 title: 'My Blog',
                 content: 'My blog contents',
-                creator: 'username1'
+                creator: '59e4b174dd43050d9418bfde'
             });
 
             var error = blog.validateSync();
@@ -82,7 +82,7 @@ describe('blog model', function () {
             it('error if title not set', function () {
                 var blog = new Blog({
                     content: 'My blog contents',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 var error = blog.validateSync();
@@ -95,7 +95,7 @@ describe('blog model', function () {
             it('error if content not set', function () {
                 var blog = new Blog({
                     title: 'My Blog',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 var error = blog.validateSync();
@@ -124,7 +124,7 @@ describe('blog model', function () {
                 var blog = new Blog({
                     title: '   ',
                     content: 'My blog contents',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 var error = blog.validateSync();
@@ -138,7 +138,7 @@ describe('blog model', function () {
                 var blog = new Blog({
                     title: 'My Blog',
                     content: '   ',
-                    creator: 'username1'
+                    creator: '59e4b174dd43050d9418bfde'
                 });
 
                 var error = blog.validateSync();
@@ -146,20 +146,6 @@ describe('blog model', function () {
                 assert.notTypeOf(error, 'undefined');
                 assert.equal(error.message,
                     'Blog validation failed: content: Cannot be empty.');
-            });
-
-            it('error if creator is empty', function () {
-                var blog = new Blog({
-                    title: 'My Blog',
-                    content: 'My blog contents',
-                    creator: '   '
-                });
-
-                var error = blog.validateSync();
-
-                assert.notTypeOf(error, 'undefined');
-                assert.equal(error.message,
-                    'Blog validation failed: creator: Cannot be empty.');
             });
         });
     });
