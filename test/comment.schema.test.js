@@ -45,4 +45,15 @@ describe('comment schema', function () {
             });
         });
     });
+    describe('instance methods', function () {
+        describe('markAsUpdated', function () {
+            
+        });
+        describe('updateContent', function () {
+            
+        });
+        describe('reply', function () {
+            
+        });
+    });
 });
