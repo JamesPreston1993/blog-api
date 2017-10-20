@@ -24,7 +24,8 @@ CommentSchema.methods.markAsUpdated = function () {
 };
 
 CommentSchema.methods.updateContent = function (content) {
-
+    this.content = content;
+    this.markAsUpdated();
 };
 
 CommentSchema.methods.reply = function (comment) {
