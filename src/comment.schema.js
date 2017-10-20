@@ -28,7 +28,11 @@ CommentSchema.methods.updateContent = function (content) {
 };
 
 CommentSchema.methods.reply = function (comment) {
-    
+    if (typeof this.replies === 'undefined') {
+        this.replies = [];
+    }
+
+    this.replies.push(comment);
 };
 
 module.exports = CommentSchema;
