@@ -20,7 +20,7 @@ CommentSchema.add({
 });
 
 CommentSchema.methods.markAsUpdated = function () {
-
+    this.lastUpdatedOn = Date.now();
 };
 
 CommentSchema.methods.updateContent = function (content) {
