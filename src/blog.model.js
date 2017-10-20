@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var CommentSchema =  require('./comment.schema');
 var userSchemaName = process.env.USER_SCHEMA_NAME || 'User';
 
 var notEmptyValidator = [
@@ -13,7 +14,8 @@ var BlogSchema = new Schema({
     content: { type: String, required: true, validate: notEmptyValidator },
     creator: { type: Schema.Types.ObjectId, required: true, ref: userSchemaName },
     createdOn: { type: Date, default: Date.now },
-    lastUpdatedOn: { type: Date }
+    lastUpdatedOn: { type: Date },
+    comments: [CommentSchema]
 });
 
 BlogSchema.methods.markAsUpdated = function () {
