@@ -6,6 +6,17 @@ An API for creating, viewing, editing and deleting blogs using:
 * Mongoose
 * MongoDB
 
+## Prerequisites
+The blog takes an `ObjectId` that is used to identify the user that
+created the blog. This `ObjectId` is used as a ref to a separate schema
+that identifies the user. This module does not include the schema, but
+instead allows the consumer to create their own `User` schema and pass
+its name to the module, which will be populated.
+
+This can be done by setting the Node environment variable
+`USER_SCHEMA_NAME`, which has a default value of `User` if not
+provided. 
+
 ## Getting Started with the Demo App
 
 To test the API, you can run the demo app. First, create a file
@@ -54,7 +65,7 @@ Create a new blog with the specified data
 Request Parameters (body):
 * `title`: Title of the blog
 * `content`: Content of the blog
-* `creator`: Creator of the blog
+* `creator`: id of the creator of the blog
 
 ### Update Blog
 Update a single blog matching the provided ID.
