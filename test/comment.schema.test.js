@@ -47,7 +47,19 @@ describe('comment schema', function () {
     });
     describe('instance methods', function () {
         describe('markAsUpdated', function () {
-            
+            it('populates lastUpdatedOn', function () {
+                var currentDate = new Date(new Date().getTime() - 10);
+                var comment = new Comment({
+                    content: 'My comment',
+                    creator: '59e4b174dd43050d9418bfde'
+                });
+
+                comment.markAsUpdated();
+
+                assert.notTypeOf(comment.lastUpdatedOn, 'undefined');
+                assert.isAbove(comment.lastUpdatedOn.getTime(),
+                    currentDate.getTime());
+            });
         });
         describe('updateContent', function () {
             
