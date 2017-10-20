@@ -19,4 +19,16 @@ CommentSchema.add({
     replies: [CommentSchema]
 });
 
+CommentSchema.methods.markAsUpdated = function () {
+
+};
+
+CommentSchema.methods.updateContent = function (content) {
+
+};
+
+CommentSchema.methods.reply = function (comment) {
+    
+};
+
 module.exports = CommentSchema;
