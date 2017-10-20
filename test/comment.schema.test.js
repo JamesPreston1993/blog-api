@@ -62,7 +62,16 @@ describe('comment schema', function () {
             });
         });
         describe('updateContent', function () {
-            
+            it('sets content', function () {
+                var comment = new Comment({
+                    content: 'My comment',
+                    creator: '59e4b174dd43050d9418bfde'
+                });
+
+                comment.updateContent('My updated comment');
+
+                assert.equal(comment.content, 'My updated comment');
+            });
         });
         describe('reply', function () {
             it('adds comment to replies array', function () {
