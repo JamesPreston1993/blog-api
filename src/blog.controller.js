@@ -74,7 +74,7 @@ function viewBlog (req, res) {
         res.status(400).send('An id was not provided');
     }
 
-    Blog.findById(req.params.id, '-comments', function (err, blog) {
+    Blog.findById(req.params.id, '-comments').populate('creator').exec(function (err, blog) {
         if (err) {
             res.status(500).send('An error occurred retrieving blog: ' + err);
         }
@@ -88,7 +88,7 @@ function viewBlog (req, res) {
 }
 
 function viewBlogs (req, res) {
-    var query = Blog.find({}, '-comments');
+    var query = Blog.find({}, '-comments').populate('creator');
 
     // Filter by username
     if (typeof req.query.creator !== 'undefined') {
