@@ -2,6 +2,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
+require('./models/user.mock.model');
+
 var blogRoutes = require('./routes/blog.routes');
 var commentRoutes = require('./routes/comment.routes');
 var config = require('./config.json');
