@@ -1,4 +1,5 @@
 var Blog = require('./blog.model');
+var Comment = require('./comment.model').model;
 
 module.exports = {
     create: createComment,
@@ -10,10 +11,10 @@ module.exports = {
 };
 
 function createComment(req, res) {
-    var comment = {
+    var comment = new Comment({
         content: req.body.content,
         creator: req.body.creator,
-    };
+    });
     
     Blog.findById(req.params.blogId, function (err, blog) {
         if (err) {

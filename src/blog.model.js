@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var CommentSchema =  require('./comment.schema');
+var CommentSchema =  require('./comment.model').schema;
 var userSchemaName = process.env.USER_SCHEMA_NAME || 'User';
 
 var notEmptyValidator = [

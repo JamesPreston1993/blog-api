@@ -15,10 +15,6 @@ var CommentSchema = new Schema({
     lastUpdatedOn: { type: Date }
 });
 
-CommentSchema.add({
-    replies: [CommentSchema]
-});
-
 CommentSchema.methods.markAsUpdated = function () {
     this.lastUpdatedOn = Date.now();
 };
@@ -36,4 +32,7 @@ CommentSchema.methods.reply = function (comment) {
     this.replies.push(comment);
 };
 
-module.exports = CommentSchema;
+module.exports = {
+    schema: CommentSchema,
+    model: mongoose.model('Comment', CommentSchema)
+};

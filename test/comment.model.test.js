@@ -1,7 +1,5 @@
-var CommentSchema = require('./../src/comment.schema');
+var Comment = require('./../src/comment.model').model;
 var assert = require('chai').assert;
-var mongoose = require('mongoose');
-var Comment = mongoose.model('Comment', CommentSchema);
 
 describe('comment schema', function () {
     describe('validators', function () {
