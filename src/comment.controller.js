@@ -3,7 +3,6 @@ var Comment = require('./comment.model').model;
 
 module.exports = {
     create: createComment,
-    reply: replyToComment,
     update: updateComment,
     delete: deleteComment,
     view: viewComment,
@@ -35,10 +34,6 @@ function createComment(req, res) {
             }
         });
     });
-}
-
-function replyToComment(req, res) {
-    
 }
 
 function updateComment(req, res) {

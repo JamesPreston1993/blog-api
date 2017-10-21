@@ -71,22 +71,5 @@ describe('comment schema', function () {
                 assert.equal(comment.content, 'My updated comment');
             });
         });
-        describe('reply', function () {
-            it('adds comment to replies array', function () {
-                var comment = new Comment({
-                    content: 'My comment',
-                    creator: '59e4b174dd43050d9418bfde'
-                });
-
-                var reply = new Comment({
-                    content: 'My reply',
-                    creator: '59e4b174dd43050d9418bfde'
-                });
-                
-                comment.reply(reply);
-
-                assert.equal(comment.replies.length, 1);
-            });
-        });
     });
 });
