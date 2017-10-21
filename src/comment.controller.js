@@ -59,14 +59,12 @@ function viewComment(req, res) {
             res.status(404).send('Blog with the provided id could not be found');
         }
 
-        var comments = blog.comments.filter(function(comment) {
-            return comment.id === req.params.commentId;
-        });
+        var comment =  blog.comments.id(req.params.commentId);
 
-        if (comments.length) {
-            res.send(comments[0]); 
-        } else {
+        if (!comment) {
             res.status(404).send('Comment with the provided id could not be found');
+        } else {
+            res.send(comment); 
         }
     });
 }
