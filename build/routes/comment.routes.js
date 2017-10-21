@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var controller = require('../../src/comment.controller');
+var controller = require('../../src').comment.controller;
 
 router.get('/:blogId/comment', controller.viewMany);
 

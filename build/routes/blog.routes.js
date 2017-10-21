@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var controller = require('../../src').controller;
+var controller = require('../../src').blog.controller;
 
 router.get('/', controller.viewMany);
 

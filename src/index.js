@@ -1,7 +1,16 @@
-var model = require('./blog.model');
-var controller = require('./blog.controller');
+var blogModel = require('./blog.model');
+var blogController = require('./blog.controller');
+var comment = require('./comment.model');
+var commentController = require('./comment.controller');
 
 module.exports = {
-    model: model,
-    controller: controller
+    blog: {
+        model: blogModel,
+        controller: blogController
+    },
+    comment: {
+        model: comment.model,
+        schema: comment.schema,
+        controller: commentController
+    }
 };
