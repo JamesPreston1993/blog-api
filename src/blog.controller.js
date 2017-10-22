@@ -74,9 +74,9 @@ function viewBlog (req, res) {
         res.status(400).send('An id was not provided');
     }
 
-    Blog.findById(req.params.id, function (err, blog) {
+    Blog.findById(req.params.id).populate('creator').exec(function (err, blog) {
         if (err) {
-            res.status(500).send('An error occured retrieving blog: ' + err);
+            res.status(500).send('An error occurred retrieving blog: ' + err);
         }
 
         if (!blog) { 
@@ -88,7 +88,7 @@ function viewBlog (req, res) {
 }
 
 function viewBlogs (req, res) {
-    var query = Blog.find();
+    var query = Blog.find().populate('creator');
 
     // Filter by username
     if (typeof req.query.creator !== 'undefined') {
@@ -124,7 +124,7 @@ function viewBlogs (req, res) {
 
     query.exec(function (err, blogs) {
         if (err) {
-            res.status(500).send('An error occured retrieving blogs: ' + err);
+            res.status(500).send('An error occurred retrieving blogs: ' + err);
         } else {
             res.send(blogs);
         }
