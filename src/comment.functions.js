@@ -13,8 +13,43 @@ function createComment () {
     
 }
 
-function updateComment () {
+function updateComment (blogId, commentId, newComment, onSuccess, onFail) {
+    Blog.findById(blogId, function (err, blog) {
+        if (err) {
+            onFail({
+                status: 500,
+                message: 'Error updating comment: ' + err
+            });
+        }
 
+        if (!blog) {
+            onFail({
+                status: 404,
+                message: 'Blog with the provided id could not be found'
+            });
+        }
+
+        var comment = blog.comments.id(commentId);
+
+        if (!comment) {
+            onFail({
+                status: 404,
+                message: 'Comment with the provided id could not be found'
+            });
+        } else {
+            comment.updateContent(newComment);
+            blog.save(function (err) {
+                if (err) {
+                    onFail({
+                        status: 500,
+                        message: 'Error updating comment: ' + err
+                    });
+                } else {
+                    onSuccess('Updated comment.');
+                }
+            });
+        }
+    });
 }
 
 function deleteComment (blogId, commentId, onSuccess, onFail) {
