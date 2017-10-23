@@ -1,5 +1,6 @@
 var Blog = require('./blog.model');
 var Comment = require('./comment.model').model;
+var commentFunctions = require('./comment.functions');
 
 module.exports = {
     create: createComment,
@@ -111,15 +112,9 @@ function viewComment(req, res) {
 }
 
 function viewComments(req, res) {
-    Blog.findById(req.params.blogId, function (err, blog) {
-        if (err) {
-            res.status(500).send('Error adding comment to blog: ' + err);
-        }
-
-        if (!blog) { 
-            res.status(404).send('Blog with the provided id could not be found');
-        }
-
-        res.send(blog.comments);
+    commentFunctions.viewMany(req.params.blogId, function (data) {
+        res.send(data)
+    }, function (err) {
+        res.status(err.status).send(err.message);
     });
 }
