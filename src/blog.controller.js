@@ -1,4 +1,5 @@
 var Blog = require('./blog.model');
+var blogFunctions = require('./blog.functions');
 
 module.exports = {
     create: createBlog,
@@ -88,45 +89,9 @@ function viewBlog (req, res) {
 }
 
 function viewBlogs (req, res) {
-    var query = Blog.find({}, '-comments').populate('creator');
-
-    // Filter by username
-    if (typeof req.query.creator !== 'undefined') {
-        var creator = decodeURIComponent(req.query.creator);
-        query.where({ creator: creator });       
-    }
-
-    // Filter by start date
-    if (typeof req.query.startDate !== 'undefined') {
-        var milliseconds = parseInt(req.query.startDate);
-        if (!isNaN(milliseconds)) {
-            var startDate = new Date(milliseconds);
-            query.where({ createdOn: { $gte: startDate } });
-        }     
-    }
-
-    // Filter by end date
-    if (typeof req.query.endDate !== 'undefined') {
-        var milliseconds = parseInt(req.query.endDate);
-        if (!isNaN(milliseconds)) {
-            var endDate = new Date(milliseconds);
-            query.where({ createdOn: { $lte: endDate } });
-        }     
-    }
-
-    // Add limit to search
-    if (typeof req.query.limit !== 'undefined') {
-        var limit = parseInt(req.query.limit);
-        if (!isNaN(limit)) {
-            query.limit(limit);
-        }        
-    }
-
-    query.exec(function (err, blogs) {
-        if (err) {
-            res.status(500).send('An error occurred retrieving blogs: ' + err);
-        } else {
-            res.send(blogs);
-        }
-    });
+    blogFunctions.viewMany(req.query, function (data) {
+        res.send(data);
+    }, function (err) {
+        res.status(err.status).send(err.message)
+    })
 }
