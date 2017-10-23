@@ -3,6 +3,7 @@ var blogController = require('./blog.controller');
 var blogFunctions = require('./blog.functions');
 var comment = require('./comment.model');
 var commentController = require('./comment.controller');
+var commentFunctions = require('./comment.functions');
 
 module.exports = {
     blog: {
@@ -13,6 +14,7 @@ module.exports = {
     comment: {
         model: comment.model,
         schema: comment.schema,
-        controller: commentController
+        controller: commentController,
+        functions: commentFunctions
     }
 };
