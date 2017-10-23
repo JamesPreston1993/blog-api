@@ -12,8 +12,40 @@ function createBlog () {
     
 }
 
-function updateBlog () {
+function updateBlog (id, newBlog, onSuccess,onFail) {
+    Blog.findById(id, function (err, blog) {
+        if (err) {
+            onFail({
+                status: 500,
+                message: 'Error updating blog: ' + err
+            });
+        }
+    
+        if (!blog) {
+            onFail({
+                status: 404,
+                message: 'Blog with the provided id could not be found'
+            });
+        } else {
+            var triggerUpdate = blog.updateProperties(newBlog);
 
+            if (triggerUpdate) {
+                blog.markAsUpdated();
+                blog.save(function (err, updatedBlog) {
+                    if (err) {
+                        onFail({
+                            status: 500,
+                            message: 'Error updating blog: ' + err
+                        });
+                    } else {
+                        onSuccess('Blog updated.');
+                    }
+                });
+            } else {
+                onSuccess('Update not required.');
+            }
+        }
+    });
 }
 
 function deleteBlog (id, onSuccess, onFail) {

@@ -26,29 +26,10 @@ function createBlog (req, res) {
 }
 
 function updateBlog (req, res) {
-    Blog.findById(req.params.id, function (err, blog) {
-        if (err) {
-            res.status(500).send('Error updating blog: ' + err);
-        }
-    
-        if (!blog) { 
-            res.status(404).send('Blog with the provided id could not be found');
-        } else {
-            var triggerUpdate = blog.updateProperties(req.body);
-
-            if (triggerUpdate) {
-                blog.markAsUpdated();
-                blog.save(function (err, updatedBlog) {
-                    if (err) {
-                        res.status(500).send('Error updating blog: ' + err);
-                    } else {
-                        res.send('Blog updated.');
-                    }
-                });
-            } else {
-                res.send('Update not required.');
-            }
-        }
+    blogFunctions.update(req.params.id, req.body, function (data) {
+        res.send(data);
+    }, function (err) {
+        res.status(err.status).send(err.message);
     });
 }
 
