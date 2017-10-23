@@ -65,29 +65,10 @@ function updateComment(req, res) {
 }
 
 function deleteComment(req, res) {
-    Blog.findById(req.params.blogId, function (err, blog) {
-        if (err) {
-            res.status(500).send('Error removing comment: ' + err);
-        }
-
-        if (!blog) { 
-            res.status(404).send('Blog with the provided id could not be found');
-        }
-
-        var comment = blog.comments.id(req.params.commentId);
-
-        if (!comment) {
-            res.status(404).send('Comment with the provided id could not be found');
-        } else {
-            comment.remove();
-            blog.save(function (err) {
-                if (err) {
-                    res.status(500).send('Error removing comment: ' + err);
-                } else {
-                    res.send('Removed comment.');
-                }
-            });
-        }
+    commentFunctions.delete(req.params.blogId, req.params.commentId, function (data) {
+        res.send(data)
+    }, function (err) {
+        res.status(err.status).send(err.message);
     });
 }
 
