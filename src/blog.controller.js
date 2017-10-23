@@ -10,18 +10,10 @@ module.exports = {
 };
 
 function createBlog (req, res) {
-    var blog = new Blog({
-        title: req.body.title,
-        content: req.body.content,
-        creator: req.body.creator
-    });
-
-    blog.save(function (err) {
-        if (err) {
-            res.status(500).send('Error saving blog: ' + err);
-        } else {
-            res.send('Blog created.');
-        }
+    blogFunctions.create(req.body, function (data) {
+        res.send(data);
+    }, function (err) {
+        res.status(err.status).send(err.message);
     });
 }
 

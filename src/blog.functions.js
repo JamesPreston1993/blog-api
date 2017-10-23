@@ -8,8 +8,23 @@ module.exports = {
     viewMany: viewBlogs
 };
 
-function createBlog () {
-    
+function createBlog (newBlog, onSuccess, onFail) {
+    var blog = new Blog({
+        title: newBlog.title,
+        content: newBlog.content,
+        creator: newBlog.creator
+    });
+
+    blog.save(function (err) {
+        if (err) {
+            onFail({
+                status: 500,
+                message: 'Error updating blog: ' + err
+            });
+        } else {
+            onSuccess('Blog created.');
+        }
+    });
 }
 
 function updateBlog (id, newBlog, onSuccess,onFail) {
