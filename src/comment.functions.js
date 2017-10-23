@@ -9,8 +9,40 @@ module.exports = {
     viewMany: viewComments
 };
 
-function createComment () {
+function createComment (blogId, newComment, onSuccess, onFail) {
+    var comment = new Comment({
+        content: newComment.content,
+        creator: newComment.creator,
+    });
     
+    Blog.findById(blogId, function (err, blog) {
+        if (err) {
+            onFail({
+                status: 500,
+                message: 'Error adding comment to blog: ' + err
+            });
+        }
+
+        if (!blog) {
+            onFail({
+                status: 404,
+                message: 'Blog with the provided id could not be found'
+            });
+        }
+
+        blog.comments.push(comment);
+
+        blog.save(function (err) {
+            if (err) {
+                onFail({
+                    status: 500,
+                    message: 'Error adding comment to blog: ' + err
+                });
+            } else {
+                onSuccess('Comment added.');
+            }
+        });
+    });
 }
 
 function updateComment (blogId, commentId, newComment, onSuccess, onFail) {
