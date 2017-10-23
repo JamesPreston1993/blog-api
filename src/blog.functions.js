@@ -20,20 +20,29 @@ function deleteBlog () {
 
 }
 
-function viewBlog (req, res) {
-    if (typeof req.params.id === 'undefined') {
-        res.status(400).send('An id was not provided');
+function viewBlog (id, onSuccess, onFail) {
+    if (typeof id === 'undefined') {
+        onFail({
+            status: 400,
+            message: 'An id was not provided'
+        });
     }
 
-    Blog.findById(req.params.id, '-comments').populate('creator').exec(function (err, blog) {
+    Blog.findById(id, '-comments').populate('creator').exec(function (err, blog) {
         if (err) {
-            res.status(500).send('An error occurred retrieving blog: ' + err);
+            onFail({
+                status: 500,
+                message: 'An error occurred retrieving blogs: ' + err
+            });
         }
 
-        if (!blog) { 
-            res.status(404).send('Blog with the provided id could not be found');
+        if (!blog) {
+            onFail({
+                status: 404,
+                message: 'Blog with the provided id could not be found'
+            });
         } else {
-            res.send(blog);
+            onSuccess(blog);
         }
     })
 }

@@ -71,27 +71,17 @@ function deleteBlog (req, res) {
 }
 
 function viewBlog (req, res) {
-    if (typeof req.params.id === 'undefined') {
-        res.status(400).send('An id was not provided');
-    }
-
-    Blog.findById(req.params.id, '-comments').populate('creator').exec(function (err, blog) {
-        if (err) {
-            res.status(500).send('An error occurred retrieving blog: ' + err);
-        }
-
-        if (!blog) { 
-            res.status(404).send('Blog with the provided id could not be found');
-        } else {
-            res.send(blog);
-        }
-    })
+    blogFunctions.view(req.params.id, function (data) {
+        res.send(data);
+    }, function (err) {
+        res.status(err.status).send(err.message);
+    });
 }
 
 function viewBlogs (req, res) {
     blogFunctions.viewMany(req.query, function (data) {
         res.send(data);
     }, function (err) {
-        res.status(err.status).send(err.message)
-    })
+        res.status(err.status).send(err.message);
+    });
 }
