@@ -16,8 +16,31 @@ function updateBlog () {
 
 }
 
-function deleteBlog () {
+function deleteBlog (id, onSuccess, onFail) {
+    if (typeof id === 'undefined') {
+        onFail({
+            status: 400,
+            message: 'An id was not provided'
+        });
+    }
 
+    Blog.findByIdAndRemove(id, function(err, blog) {
+        if (err) {
+            onFail({
+                status: 500,
+                message: 'Error deleting blog: ' + err
+            });
+        }
+
+        if (!blog) { 
+            onFail({
+                status: 404,
+                message: 'Blog with the provided id could not be found'
+            });
+        } else {
+            onSuccess('Blog deleted.');
+        }
+    });
 }
 
 function viewBlog (id, onSuccess, onFail) {
