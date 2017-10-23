@@ -92,22 +92,10 @@ function deleteComment(req, res) {
 }
 
 function viewComment(req, res) {
-    Blog.findById(req.params.blogId, function (err, blog) {
-        if (err) {
-            res.status(500).send('Error adding comment to blog: ' + err);
-        }
-
-        if (!blog) { 
-            res.status(404).send('Blog with the provided id could not be found');
-        }
-
-        var comment =  blog.comments.id(req.params.commentId);
-
-        if (!comment) {
-            res.status(404).send('Comment with the provided id could not be found');
-        } else {
-            res.send(comment); 
-        }
+    commentFunctions.view(req.params.blogId, req.params.commentId, function (data) {
+        res.send(data)
+    }, function (err) {
+        res.status(err.status).send(err.message);
     });
 }
 
