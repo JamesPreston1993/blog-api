@@ -124,7 +124,7 @@ function deleteComment (blogId, commentId, onSuccess, onFail) {
 }
 
 function viewComment (blogId, commentId, onSuccess, onFail) {
-    Blog.findById(blogId, function (err, blog) {
+    Blog.findById(blogId).populate('comments.creator').exec(function (err, blog) {
         if (err) {
             onFail({
                 status: 500,
@@ -153,7 +153,7 @@ function viewComment (blogId, commentId, onSuccess, onFail) {
 }
 
 function viewComments (blogId, onSuccess, onFail) {
-    Blog.findById(blogId, function (err, blog) {
+    Blog.findById(blogId).populate('comments.creator').exec(function (err, blog) {
         if (err) {
             onFail({
                 status: 500,
