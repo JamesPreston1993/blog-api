@@ -1,4 +1,3 @@
-var Blog = require('./blog.model');
 var Comment = require('./comment.model').model;
 var commentFunctions = require('./comment.functions');
 
