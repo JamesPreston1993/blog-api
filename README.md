@@ -55,6 +55,7 @@ Return all blogs with optional query parameters
    - `userName`: Filter blogs by username
    - `startDate`: Filter blogs created on or after a certain date
    - `endDate`: Filter blogs created on or before a certain date
+   - `skip`: Set the number of blogs to be skipped
    - `limit`: Set the number of blogs to be returned
 
 ### View Blog
