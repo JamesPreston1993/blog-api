@@ -38,4 +38,8 @@ BlogSchema.methods.updateProperties = function (newBlog) {
     return changesMade;
 };
 
-module.exports = mongoose.model('Blog', BlogSchema);
+
+module.exports = {
+    model: mongoose.model('Blog', BlogSchema),
+    schema: BlogSchema
+};
