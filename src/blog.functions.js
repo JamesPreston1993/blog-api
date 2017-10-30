@@ -144,6 +144,14 @@ function viewBlogs (queryParams, onSuccess, onFail) {
         }     
     }
 
+    // Skip blogs
+    if (typeof queryParams.skip !== 'undefined') {
+        var skip = parseInt(queryParams.skip);
+        if (!isNaN(skip)) {
+            query.skip(skip);
+        }        
+    }
+
     // Add limit to search
     if (typeof queryParams.limit !== 'undefined') {
         var limit = parseInt(queryParams.limit);
