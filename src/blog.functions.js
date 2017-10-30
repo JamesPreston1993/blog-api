@@ -120,6 +120,16 @@ function viewBlog (id, onSuccess, onFail) {
 function viewBlogs (queryParams, onSuccess, onFail) {
     var query = Blog.find({}, '-comments').populate('creator');
 
+    // Set sort order
+    if (typeof queryParams.sortOrder !== 'undefined') {
+        var sortOrder = parseInt(queryParams.sortOrder);
+        if (!isNaN(sortOrder)) {
+            query.sort({
+                createdOn: sortOrder
+            });
+        }     
+    }
+
     // Filter by username
     if (typeof queryParams.creator !== 'undefined') {
         var creator = decodeURIComponent(queryParams.creator);
