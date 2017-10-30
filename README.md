@@ -52,6 +52,7 @@ Return all blogs with optional query parameters
    - `localhost:3000/api/blog`
 
 * Request Parameters (Query)
+   - `sortOrder`: Set the sort order (by date) of the returned blogs (1 or -1)
    - `userName`: Filter blogs by username
    - `startDate`: Filter blogs created on or after a certain date
    - `endDate`: Filter blogs created on or before a certain date
