@@ -1,4 +1,4 @@
-var Blog = require('./../src/blog.model');
+var Blog = require('./../src/blog.model').model;
 var assert = require('chai').assert;
 
 describe('blog model', function () {
