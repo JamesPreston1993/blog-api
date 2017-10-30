@@ -1,4 +1,4 @@
-var Blog = require('./blog.model');
+var Blog = require('./blog.model').model;
 
 module.exports = {
     create: createBlog,

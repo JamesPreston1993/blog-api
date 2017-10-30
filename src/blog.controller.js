@@ -1,4 +1,3 @@
-var Blog = require('./blog.model');
 var blogFunctions = require('./blog.functions');
 
 module.exports = {
