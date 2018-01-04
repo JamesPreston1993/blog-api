@@ -140,8 +140,18 @@ function viewBlogByUrl (url, onSuccess, onFail) {
                 status: 404,
                 message: 'Blog with the provided URL could not be found'
             });
+        } if (!blog || blog.length == 0) {
+            onFail({
+                status: 404,
+                message: 'Blog with the provided URL could not be found'
+            });
+        } else if (blog.length > 1) {
+            onFail({
+                status: 409,
+                message: 'Multiple blogs with the provided URL were found: URL must be unique'
+            });
         } else {
-            onSuccess(blog);
+            onSuccess(blog[0]);
         }
     });
 }
