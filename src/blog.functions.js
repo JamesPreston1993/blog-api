@@ -5,6 +5,7 @@ module.exports = {
     update: updateBlog,
     delete: deleteBlog,
     view: viewBlog,
+    viewByUrl: viewBlogByUrl,
     viewMany: viewBlogs
 };
 
@@ -12,7 +13,8 @@ function createBlog (newBlog, onSuccess, onFail) {
     var blog = new Blog({
         title: newBlog.title,
         content: newBlog.content,
-        creator: newBlog.creator
+        creator: newBlog.creator,
+        urlPath: encodeURIComponent(newBlog.urlPath)
     });
 
     blog.save(function (err) {
@@ -114,7 +116,34 @@ function viewBlog (id, onSuccess, onFail) {
         } else {
             onSuccess(blog);
         }
-    })
+    });
+}
+
+function viewBlogByUrl (url, onSuccess, onFail) {
+    if (typeof url === 'undefined') {
+        onFail({
+            status: 400,
+            message: 'A URL was not provided'
+        });
+    }
+
+    Blog.find({urlPath: url}, '-comments').populate('creator').exec(function (err, blog) {
+        if (err) {
+            onFail({
+                status: 500,
+                message: 'An error occurred retrieving blogs: ' + err
+            });
+        }
+
+        if (!blog) {
+            onFail({
+                status: 404,
+                message: 'Blog with the provided URL could not be found'
+            });
+        } else {
+            onSuccess(blog);
+        }
+    });
 }
 
 function viewBlogs (queryParams, onSuccess, onFail) {

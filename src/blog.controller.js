@@ -5,6 +5,7 @@ module.exports = {
     update: updateBlog,
     delete: deleteBlog,
     view: viewBlog,
+    viewByUrl: viewBlogByUrl,
     viewMany: viewBlogs
 };
 
@@ -34,6 +35,14 @@ function deleteBlog (req, res) {
 
 function viewBlog (req, res) {
     blogFunctions.view(req.params.id, function (data) {
+        res.send(data);
+    }, function (err) {
+        res.status(err.status).send(err.message);
+    });
+}
+
+function viewBlogByUrl (req, res) {
+    blogFunctions.viewByUrl(req.params.id, function (data) {
         res.send(data);
     }, function (err) {
         res.status(err.status).send(err.message);

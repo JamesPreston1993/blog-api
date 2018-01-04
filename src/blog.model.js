@@ -12,6 +12,7 @@ var notEmptyValidator = [
 var BlogSchema = new Schema({
     title: { type: String, required: true, validate: notEmptyValidator },
     content: { type: String, required: true, validate: notEmptyValidator },
+    urlPath: { type: String, required: true, unique: true, validate: notEmptyValidator },
     creator: { type: Schema.Types.ObjectId, required: true, ref: userSchemaName },
     createdOn: { type: Date, default: Date.now },
     lastUpdatedOn: { type: Date },
